@@ -1,0 +1,14 @@
+The Memento pattern is a behavioral design pattern that provides the ability to restore an object's state to a previous state without revealing the details of its implementation. It involves three main components:
+
+1. Originator: This is the object whose state needs to be saved or restored. It creates a memento object containing a snapshot 
+   of its current state or uses a memento object to restore its state.
+
+2. Memento: This is the object that stores the state of the originator. It has two main responsibilities: to save the state 
+   of the originator (usually by copying it) and to provide the means for restoring the originator's state.
+
+3. Caretaker: This is the object that keeps track of the mementos, but it does not manipulate the mementos themselves. 
+   It is responsible for saving and restoring the originator's state by interacting with the memento object through the originator.
+
+The Memento pattern is useful in scenarios where you need to implement undo functionality, manage the history of changes, or 
+provide checkpoints in an application. It promotes encapsulation by keeping the state-saving logic separate from the object 
+whose state is being saved, thus adhering to the Single Responsibility Principle (SRP).
