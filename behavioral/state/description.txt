@@ -1,0 +1,7 @@
+Polymorphism is a mechanism that allows you to call the same method on different objects and get different behaviors.
+
+Abstract methods are methods that are declared, but contain no implementation. 
+They are meant to be overridden by subclasses. Python does not have a built-in way to define abstract methods, but 
+Python's abc module can be used to solve this problem.
+
+State pattern allows an object to behave differently when its state changes.

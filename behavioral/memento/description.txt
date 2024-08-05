@@ -1,4 +1,5 @@
-The Memento pattern is a behavioral design pattern that provides the ability to restore an object's state to a previous state without revealing the details of its implementation. It involves three main components:
+The Memento pattern is a behavioral design pattern that provides the ability to restore an object's state to a previous state 
+without revealing the details of its implementation. It involves three main components:
 
 1. Originator: This is the object whose state needs to be saved or restored. It creates a memento object containing a snapshot 
    of its current state or uses a memento object to restore its state.

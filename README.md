@@ -8,9 +8,6 @@ Welcome to the Design Patterns repository! This repository contains implementati
 - [Design Patterns Overview](#design-patterns-overview)
 - [Patterns by Category](#patterns-by-category)
 - [Usage](#usage)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
