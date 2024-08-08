@@ -1,0 +1,5 @@
+In Python, the single underscore prefix is just a convention and does not prevent you from accessing the method. 
+Unlike languages like Java, Python does not have strict access modifiers to enforce encapsulation. The single underscore prefix 
+is a hint to the programmer that the method or attribute is intended for internal use within the class, subclass or module.
+If you want to make it harder (but not impossible) to access a method, you can use a double underscore prefix. This 
+will "mangle" the method name, making it harder to access unintentionally.
