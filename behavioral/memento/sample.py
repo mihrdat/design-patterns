@@ -1,4 +1,4 @@
-# Momento
+# Memento
 class EditorSnapshot:
     def __init__(self, content):
         self.__content = content
@@ -43,13 +43,16 @@ class History:
 editor = Editor()
 history = History()
 
-editor.content = "Hello"
+editor.content = "A"
 history.push(editor.create_snapshot())
 
-editor.content = "Hello World!"
+editor.content = "B"
 history.push(editor.create_snapshot())
 
-editor.content = "ABC"
+editor.content = "C"
+history.push(editor.create_snapshot())
+
+editor.content = "D"
 
 print(editor.content)
 
