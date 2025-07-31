@@ -11,7 +11,8 @@ class Task(ABC):
         self.audit_trail = AuditTrail()
 
     @abstractmethod
-    def _do_execute(self): ...
+    def _do_execute(self):
+        pass
 
     def execute(self):
         self.audit_trail.record()

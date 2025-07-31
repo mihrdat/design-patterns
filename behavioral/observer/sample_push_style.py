@@ -3,7 +3,8 @@ from abc import ABC, abstractmethod
 
 class Observer(ABC):
     @abstractmethod
-    def update(self, value): ...
+    def update(self, value):
+        pass
 
 
 class SpreadSheet(Observer):

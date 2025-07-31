@@ -1,19 +1,19 @@
-# Design Patterns - Gang of Four Implementation
+# 🎨 Design Patterns - Gang of Four Implementation
 
-Welcome to the Design Patterns repository! This repository contains implementations of the 23 design patterns defined in the classic book *"Design Patterns: Elements of Reusable Object-Oriented Software"* by the Gang of Four (Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides).
+Welcome to the Design Patterns repository! This repository contains implementations of the 22 design patterns defined in the classic book *"Design Patterns: Elements of Reusable Object-Oriented Software"* by the Gang of Four (Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides).
 
-## Table of Contents
+## 📚 Table of Contents
 
 - [Introduction](#introduction)
 - [Design Patterns Overview](#design-patterns-overview)
 - [Patterns by Category](#patterns-by-category)
 - [Usage](#usage)
 
-## Introduction
+## 📖 Introduction
 
-Design patterns provide solutions to common problems in software design. By using well-established patterns, developers can create more flexible, reusable, and maintainable code. This repository showcases implementations of all 23 design patterns categorized into Creational, Structural, and Behavioral patterns.
+Design patterns provide solutions to common problems in software design. By using well-established patterns, developers can create more flexible, reusable, and maintainable code. This repository showcases implementations of all 22 design patterns categorized into Creational, Structural, and Behavioral patterns.
 
-## Design Patterns Overview
+## 🔍 Design Patterns Overview
 
 The patterns are grouped into three categories:
 
@@ -21,7 +21,7 @@ The patterns are grouped into three categories:
 2. **Structural Patterns**: These patterns focus on the composition of classes and objects.
 3. **Behavioral Patterns**: These patterns focus on the interaction and responsibility between objects.
 
-## Patterns by Category
+## 🗂️ Patterns by Category
 
 ### Creational Patterns
 - **Abstract Factory**: Creates an instance of several families of classes.
@@ -42,7 +42,6 @@ The patterns are grouped into three categories:
 ### Behavioral Patterns
 - **Chain of Responsibility**: Passes a request along a chain of handlers.
 - **Command**: Encapsulates a request as an object.
-- **Interpreter**: Implements a specialized language.
 - **Iterator**: Provides a way to access elements of a collection sequentially.
 - **Mediator**: Defines simplified communication between classes.
 - **Memento**: Captures and restores an object’s internal state.
@@ -50,9 +49,8 @@ The patterns are grouped into three categories:
 - **State**: Allows an object to alter its behavior when its internal state changes.
 - **Strategy**: Encapsulates an algorithm inside a class.
 - **Template Method**: Defines the skeleton of an algorithm, letting subclasses fill in the details.
-- **Visitor**: Represents an operation to be performed on elements of an object structure.
 
-## Usage
+## 🚀 Usage
 
 Each pattern is implemented in Python and organized into its own directory. To explore a specific pattern:
 
