@@ -1,88 +1,127 @@
 from abc import ABC, abstractmethod
 
 
-class UIControl:
-    def __init__(self, owner):
-        self._owner = owner
-
-
-class DialogBox(ABC):
+class Mediator(ABC):
     @abstractmethod
-    def changed(self, control): ...
+    def notify(self, sender, event):
+        pass
 
 
-class ListBox(UIControl):
-    def __init__(self, owner):
-        super().__init__(owner)
-        self._selection = None
-
-    @property
-    def selection(self):
-        return self._selection
-
-    @selection.setter
-    def selection(self, value):
-        self._selection = value
-        self._owner.changed(self)
+class UIComponent:
+    def __init__(self, mediator=None):
+        self.__mediator = mediator
 
 
-class TextBox(UIControl):
-    def __init__(self, owner):
-        super().__init__(owner)
-        self._content = None
+class TextBox(UIComponent):
+    def __init__(self, name, mediator=None):
+        super().__init__(mediator)
+        self.__name = name
+        self.__content = ""
 
     @property
     def content(self):
-        return self._content
+        return self.__content
 
     @content.setter
     def content(self, value):
-        self._content = value
-        self._owner.changed(self)
+        self.__content = value
+        if self.__mediator:
+            self.__mediator.notify(self, "content_changed")
+
+    def is_filled(self):
+        return len(self.__content.strip()) > 0
 
 
-class Button(UIControl):
-    def __init__(self, owner):
-        super().__init__(owner)
-        self._is_enabled = None
+class CheckBox(UIComponent):
+    def __init__(self, mediator=None):
+        super().__init__(mediator)
+        self.__is_checked = False
+
+    @property
+    def is_checked(self):
+        return self.__is_checked
+
+    @is_checked.setter
+    def is_checked(self, value):
+        self.__is_checked = value
+        if self.__mediator:
+            self.__mediator.notify(self, "checkbox_changed")
+
+
+class Button(UIComponent):
+    def __init__(self, mediator=None):
+        super().__init__(mediator)
+        self.__is_enable = False
 
     @property
     def is_enabled(self):
-        return self._is_enabled
+        return self.__is_enable
 
     @is_enabled.setter
     def is_enabled(self, value):
-        self._is_enabled = value
-        self._owner.changed(self)
+        self.__is_enable = value
+
+    def click(self):
+        if self.__is_enable and self.__mediator:
+            self.__mediator.notify(self, "button_clicked")
 
 
-class ArticlesDialogBox(DialogBox):
+class SignUpDialogBox(Mediator):
     def __init__(self):
-        self._articles_list_box = ListBox(self)
-        self._title_text_box = TextBox(self)
-        self._save_button = Button(self)
+        # Create UI components
+        self.username = TextBox("username", self)
+        self.password = TextBox("password", self)
+        self.terms_of_service = CheckBox(self)
+        self.sign_up_button = Button(self)
 
-    def changed(self, control):
-        if control == self._articles_list_box:
-            self.__article_selected()
-        elif control == self._title_text_box:
-            self.__title_changed()
+        # Initial state
+        self.__update_button_state()
 
-    def simulate_user_interaction(self):
-        self._articles_list_box.selection = "Article 1"
-        self._title_text_box.content = ""
-        print(f"Textbox: {self._title_text_box.content}")
-        print(f"Button: {self._save_button.is_enabled}")
+    def notify(self, sender, event):
+        """Mediator pattern - handle component interactions"""
+        if event in ["content_changed", "check_changed"]:
+            self.__update_button_state()
+        elif event == "button_clicked":
+            self.__handle_signup()
 
-    def __title_changed(self):
-        content = self._title_text_box.content
-        is_empty = content is None or content == ""
-        self._save_button.is_enabled = not is_empty
+    def __update_button_state(self):
+        """Update button enabled state based on form validation"""
+        is_username_filled = self.username.is_filled()
+        is_password_filled = self.password.is_filled()
+        is_terms_agreed = self.terms_of_service.is_checked()
 
-    def __article_selected(self):
-        self._title_text_box.content = self._articles_list_box.selection
-        self._save_button.is_enabled = True
+        self.sign_up_button.is_enabled = (
+            is_username_filled and is_password_filled and is_terms_agreed
+        )
+
+    def __handle_signup(self):
+        """Handle the signup process"""
+        print(f"Signing up user: {self.username.content}")
+        print("Sign up successful!")
 
 
-dialog = ArticlesDialogBox()
-dialog.simulate_user_interaction()
+# Example usage
+if __name__ == "__main__":
+    # Create the dialog box
+    dialog = SignUpDialogBox()
+
+    # Simulate user interactions
+    print("=== Initial state ===")
+
+    print("\n=== User enters username ===")
+    dialog.username.content = "john_doe"
+
+    print("\n=== User enters password ===")
+    dialog.password.content = "secret123"
+
+    print("\n=== User checks terms agreement ===")
+    dialog.terms_of_service.__is_checked = True
+
+    print("\n=== User clicks sign up button ===")
+    dialog.sign_up_button.click()
+
+    print("\n=== User unchecks terms ===")
+    dialog.terms_of_service.__is_checked = False
+
+    print("\n=== User tries to click disabled button ===")
+    dialog.sign_up_button.click()  # Should not process since button is disabled

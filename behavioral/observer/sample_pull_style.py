@@ -1,13 +1,31 @@
 from abc import ABC, abstractmethod
 
 
+# Abstract observer interface
 class Observer(ABC):
     @abstractmethod
     def update(self):
         pass
 
 
-# Observable
+# Concrete observers
+class SpreadSheet(Observer):
+    def __init__(self, data_source):
+        self.__data_source = data_source
+
+    def update(self):
+        print(f"SpreadSheet got notified: {self.__data_source.value}")
+
+
+class Chart(Observer):
+    def __init__(self, data_source):
+        self.__data_source = data_source
+
+    def update(self):
+        print(f"Chart got notified: {self.__data_source.value}")
+
+
+# Observable base class
 class Subject:
     def __init__(self):
         self.__observers = []
@@ -23,6 +41,7 @@ class Subject:
             observer.update()
 
 
+# Concrete Subject
 class DataSource(Subject):
     def __init__(self):
         super().__init__()
@@ -36,22 +55,6 @@ class DataSource(Subject):
     def value(self, value):
         self.__value = value
         self.notify()
-
-
-class SpreadSheet(Observer):
-    def __init__(self, data_source):
-        self.__data_source = data_source
-
-    def update(self):
-        print(f"SpreadSheet got notified: {self.__data_source.value}")
-
-
-class Chart(Observer):
-    def __init__(self, data_source):
-        self.__data_source = data_source
-
-    def update(self):
-        print(f"Chart got notified: {self.__data_source.value}")
 
 
 data_source = DataSource()

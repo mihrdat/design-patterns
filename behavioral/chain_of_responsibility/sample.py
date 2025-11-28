@@ -3,50 +3,42 @@ from abc import ABC, abstractmethod
 
 class Handler(ABC):
     def __init__(self, next):
-        self._next = next
+        self.__next = next
 
     @abstractmethod
-    def do_handle(self, request): ...
-
     def handle(self, request):
-        if self.do_handle(request):
-            return
+        pass
 
-        if self._next:
-            self._next.handle(request)
+    def call_next(self, request):
+        if self.__next:
+            self.__next.handle(request)
 
 
 class Authenticator(Handler):
-    def __init__(self, next):
-        super().__init__(next)
-
-    def do_handle(self, request):
+    def handle(self, request):
         print("Authentication")
         is_valid = (request.username == "john") and (request.password == "12345")
 
-        return not is_valid
+        # stop processing on invalid credentials
+        if not is_valid:
+            return
+
+        # continue chain
+        self.call_next(request)
 
 
 class Compressor(Handler):
-    def __init__(self, next):
-        super().__init__(next)
-
-    def do_handle(self, request):
+    def handle(self, request):
         print("Compress")
-
-        # we're returning false, which means we're not done processing or handling the request.
-        # and that means the next handler in the chain should be called.
-        return False
+        # always continue
+        self.call_next(request)
 
 
 class Logger(Handler):
-    def __init__(self, next):
-        super().__init__(next)
-
-    def do_handle(self, request):
+    def handle(self, request):
         print("Log")
-
-        return False
+        # always continue
+        self.call_next(request)
 
 
 class HttpRequest:
@@ -76,4 +68,5 @@ logger = Logger(compressor)
 authenticator = Authenticator(logger)
 
 web_server = Webserver(authenticator)
-web_server.handle(HttpRequest("john", "12345"))
+request = HttpRequest("john", "12345")
+web_server.handle(request)

@@ -46,7 +46,6 @@ The patterns are grouped into three categories:
 - **Mediator**: Defines simplified communication between classes.
 - **Memento**: Captures and restores an object’s internal state.
 - **Observer**: Allows an object to notify other objects when its state changes.
-- **State**: Allows an object to alter its behavior when its internal state changes.
 - **Strategy**: Encapsulates an algorithm inside a class.
 - **Template Method**: Defines the skeleton of an algorithm, letting subclasses fill in the details.
 
